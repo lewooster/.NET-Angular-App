@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "~10.0.6",
     "@angular/router": "~10.0.6",
     "boostrap": "^2.0.0",
-    "bootstrap": "^3.4.1",
+    "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "rxjs": "~6.5.5",
