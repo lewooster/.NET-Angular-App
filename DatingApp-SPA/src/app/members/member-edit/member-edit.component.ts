@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class MemberEditComponent implements OnInit {
 @ViewChild('editForm', {static: true}) editForm: NgForm;
 user: User;
+photoUrl: string;
+
 // listens to host / browser and can take action - to stop people closing
 // browser if edits have been made.
 @HostListener('window:beforeunload', ['$event'])
@@ -34,7 +36,14 @@ unloadNotification($event: any){
       data => {
         this.user = data['user'];
       }
+    );
+
+    this.authService.currentPhotoUrl.subscribe(photoUrl =>
+      this.photoUrl = photoUrl
+
     )
+
+
   }
 
   updateUser(){

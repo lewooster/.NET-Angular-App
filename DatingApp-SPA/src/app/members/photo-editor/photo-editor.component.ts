@@ -21,6 +21,7 @@ response: string;
 baseUrl = environment.apiUrl;
 currentMain: Photo;
 
+
   constructor(private authService: AuthService,
     private userService: UserService,
     private alertify: AlertifyService){};
@@ -70,13 +71,30 @@ currentMain: Photo;
   }
 
   setMainPhoto(photo: Photo){
-    this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => { 
+    this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
       this.currentMain = this.photos.filter(p => p.isMain === true)[0]; // returns an array of one item
       this.currentMain.isMain = false;
       photo.isMain = true;
-      this.getMemberPhotoChange.emit(photo.url); // hoist photo url up to parent components
+      this.authService.changeMemberPhoto(photo.url);// hoist photo url up to parent components
+      this.authService.currentUser.photoUrl = photo.url;
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     }, error => {
       this.alertify.error(error);
     });
   }
+
+
+  deletePhoto(id: number){
+
+    this.alertify.confirm('Are you sure you want to delte this photo', () => {
+      this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
+        this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+        this.alertify.success('Photo has been deteted')
+      },
+      error =>{
+        this.alertify.error('Failed to delete the photo')
+      });
+    });
+  }
+
 }

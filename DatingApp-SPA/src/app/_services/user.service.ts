@@ -35,4 +35,9 @@ constructor(private http: HttpClient ) { }
     return this.http.post(this.baseUrl+ 'users/' + userId + '/photos/' + id + '/setMain',{})
   }
 
+  deletePhoto(userId: number, id: number){
+    //http://localhost:5000/api/users/1/photos/14
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id)
+  }
+
 }

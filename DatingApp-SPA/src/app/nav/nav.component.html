@@ -16,10 +16,16 @@
 
 
     <div dropdown *ngIf="loggedIn()" class="dropdown">
+      <span class="mr-2">
+        <img src="{{photoUrl}}" alt="">
+        <!-- <img src="{{this.photoUrl}}" alt="">
+        <img src="{{this.authService.photoUrl}}" alt="">
+        <img src="{{this.authService.currentUser.photoUrl}}" alt=""> -->
+      </span>
       <a dropdownToggle class="dropdown-toggle text-light">
         Welcome {{authService.decodedToken?.unique_name | titlecase}}
       </a>
-    
+
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" [routerLink]="['/member/edit']">
           <i class="fa-fa-user"></i>Edit Profile</a>
